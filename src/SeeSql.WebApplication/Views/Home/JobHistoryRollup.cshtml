@@ -1,0 +1,70 @@
+﻿@using BpUi.Extensions
+@model BpWeb.ViewModels.Home.JobHistoryViewModel
+
+@{
+    Layout = null;
+}
+
+<table class="see-sql job-run">
+    <thead>
+    <tr>
+        <th class="indicator"></th>
+        <th class="indicator"></th>
+        <th>Message</th>
+        <th>Run Duration</th>
+        <th>Run Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var jobHistory in Model.JobHistory)
+    {
+        <tr class="job-run-result expandable" data-job-key="@jobHistory.JobId" data-key="@jobHistory.InstanceId">
+            <td><i data-job-key="@jobHistory.JobId" data-key="@jobHistory.InstanceId" class="fa fa-plus-square-o"></i></td>
+            <td>
+                @if (jobHistory.RunStatus == 0)
+                {
+                    <i class="fa fa-times-circle"></i>
+                }
+                else
+                {
+                    <i class="fa fa-check"></i>
+                }
+            </td>
+            <td>@Html.DisplayFor(model => jobHistory.Message)</td>
+            <td>@Html.DisplayFor(model => jobHistory.RunDuration)</td>
+            <td>@Html.DisplayFor(model => jobHistory.RunDate)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $().ready(function() {
+        $(".job-run-result").on('click', function () {
+            var key = $(this).attr("data-key");
+            
+            if (key) {
+                var jobId = $(this).attr("data-job-key");
+                var $row = $(this);//"tr[data-job-key='"+jobId+"'][data-key='" + key + "']"
+                var $subrow = $(".job-run-result-detail[data-job-key='"+jobId+"'][data-key='" + key + "']");
+                if (!$subrow.length) { //if sub row does not exist
+                    $("<tr class=\"job-run-result-detail\" data-job-key=\""+jobId+"\" data-key=\"" + key + "\"><td colspan=\"" + $row.find("td").length + "\"></td></tr>").insertAfter($row);
+
+                    $subrow = $(".job-run-result-detail[data-job-key='" + jobId + "'][data-key='" + key + "']");
+                    $subrow.find("td").load("@Url.Action("JobHistory", "SqlVisibilty")", { jobId: jobId, instanceId: key }, function (responseText, textStatus, jqXHR) {
+                        
+                    });
+                } else { //sub row exists
+                    $subrow.toggle();
+                }
+                var $rowCollapseStatusIcon = $row.find("i[data-key=\"" + key + "\"][data-job-key=\""+jobId+"\"]");
+                $rowCollapseStatusIcon.removeClass("fa-plus-square-o");
+                $rowCollapseStatusIcon.removeClass("fa-minus-square-o");
+                if ($subrow.is(":visible")) {
+                    $rowCollapseStatusIcon.addClass("fa-minus-square-o");
+                } else {
+                    $rowCollapseStatusIcon.addClass("fa-plus-square-o");
+                }
+            }
+        });
+    });
+</script>

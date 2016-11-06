@@ -1,0 +1,68 @@
+﻿@model SeeSql.WebApplication.ViewModels.DashboardViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>SeeSql Dashboard</h1>
+    <p class="lead">SeeSql is a free web application and library for programatically accessing job information and scheduling</p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            SeeSql is easy and intuitive, and provides some tools for performing analysis of sql code by technical users.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>SeeSql has job visualizations to make scheduling easier</p>
+        <p><a class="btn btn-default" href="@Url.Action("http://d3js.org")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Security</h2>
+        <p>SeeSql is an MVC website </p>
+    </div>
+</div>
+<div class="row">
+    <ul id="jobNavigation" class="nav nav-tabs">
+        <li class="active"><a data-target="#tabs-explanation" data-toggle="tab">Information</a></li>
+        <li><a data-target="#tabs-job-status" data-toggle="tab" data-url="@Url.Action("JobList")">Job Status</a></li>
+        <li><a data-target="#tabs-job-schedule" data-toggle="tab" data-url="@Url.Action("JobSchedules")">Job Schedules</a></li>
+        <li><a data-target="#tabs-job-scheduler" data-toggle="tab" data-url="@Url.Action("PlannedExecutions")">Planned Executions</a></li>
+    </ul>
+    <div id="jobNavigationContent" class="tab-content">
+        <div class="tab-pane active" id="tabs-explanation">
+        </div>
+        <div class="tab-pane" id="tabs-job-status">
+
+        </div>
+        <div class="tab-pane" id="tabs-job-schedule">
+
+        </div>
+        <div class="tab-pane" id="tabs-job-scheduler">
+
+        </div>
+    </div>
+
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        function initializeTabNavigation() {
+            $("#jobNavigation li a").on("show.bs.tab", function () {
+                var target = $(this).attr("data-target");
+                var url = $(this).attr("data-url");
+                if (target && url) {
+                    $(target).empty().load("@Url.Action("Loading")", function () {
+                        $(target).load(url);
+                    });
+                }
+            });
+        }
+
+        $().ready(function () {
+            initializeTabNavigation();
+        });
+    </script>
+}

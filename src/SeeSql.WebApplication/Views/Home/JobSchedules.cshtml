@@ -1,0 +1,41 @@
+﻿@model SeeSql.WebApplication.ViewModels.JobScheduleListViewModel
+
+@{
+    Layout = null;
+}
+
+<table id="jobs-schedules" class="see-sql">
+    <thead>
+    <tr>
+        <th>Job Name</th>
+        <th>Schedule Name</th>
+        <th>Frequency</th>
+        <th class="date">Next Run Date</th>
+        <th class="date">Start Date</th>
+        <th class="date">End Date</th>
+        <th class="small">Version</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var jobSchedule in Model.JobSchedules)
+    {
+        <tr data-status="@jobSchedule.Enabled">
+            <td>@Html.DisplayFor(model => Model.Jobs.Single(job => job.JobId == jobSchedule.JobId).Name)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.Name)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.FrequencyFriendlyText)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.NextRunDate)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.ActiveStartDate)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.ActiveEndDate)</td>
+            <td>@Html.DisplayFor(model => jobSchedule.VersionNumber)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(function() {
+        var customOptions = {};
+        $.extend(customOptions, SeeSqlDefaults.DataTableOptions);
+        customOptions.order = [0, "asc"];
+        $("#jobs-schedules").DataTable(customOptions);
+    });
+</script>

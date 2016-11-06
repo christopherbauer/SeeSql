@@ -1,0 +1,138 @@
+﻿@model SeeSql.WebApplication.ViewModels.JobSchedulerListViewModel
+<script>
+    var jobSchedulesCount = @Model.Jobs.Count();
+    $().ready(function() {
+        var barHeight = 20;
+        var margin = { top: 20, right: 20, bottom: 40, left: 100 },
+            width = $("#scheduler").outerWidth() - margin.left - margin.right,
+            height = (jobSchedulesCount * barHeight) - margin.top - margin.bottom;
+        var runTimeInfo = [@Html.Raw(string.Join(", ", Model.InterpolatedRunTimes.Select((schedule, i) => string.Format("{{ name: '{4}', id:\"{1}\", runTime: new Date({2}), averageRunDuration: {3} }}", i, schedule.JobId, schedule.ExpectedRunDate.ToJavascriptString(), Math.Max(schedule.ExpectedDuration?.Milliseconds ?? 1, 1), schedule.JobName))))];
+        var jobs = [@Html.Raw(string.Join(",", Model.Jobs.Select(job => string.Format("{{ id:\"{0}\", name: \"{1}\" }}", job.JobId, job.Name))))];
+        var dateRangeDomain = [+new Date(@Model.RangeStart.ToJavascriptString()), +new Date(@Model.RangeEnd.ToJavascriptString())],
+            jobDomain = [+0, +(jobSchedulesCount - 1)],
+            currentDateTime = new Date(@Model.CurrentDateTime.ToJavascriptString());
+
+        var jobIdToNumberMap = [];
+        for (var i = 0; i < jobs.length; i++) {
+            if (!jobIdToNumberMap.filter(function(j) { return j.id === jobs[i].id; }).length) {
+                jobIdToNumberMap.push({ id: jobs[i].id, number: jobIdToNumberMap.length });
+            }
+            jobs[i].number = jobIdToNumberMap.filter(function(j) { return j.id === jobs[i].id; })[0].number;
+        }
+
+        $.each(runTimeInfo, function(i, el) {
+            el.number = jobIdToNumberMap.filter(function (jId) { return el.id === jId.id; })[0].number;
+        });
+        
+        var xScale = d3.scaleTime()
+            .domain(dateRangeDomain)
+            .range([0, width]);
+
+        var xAxis = d3.axisBottom(xScale)
+            .ticks(d3.timeHour.every(1));
+
+        var yScale = d3.scaleLinear()
+            .domain(jobDomain)
+            .range([height, 0]);
+
+        var yAxis = d3.axisLeft(yScale)
+            .ticks(jobSchedulesCount)
+            .tickPadding(0)
+            .tickSize(0)
+            .tickFormat(function(d) { return jobs.filter(function(j) { return j.number === d; })[0].name; });
+
+        //function clicked(d) {
+        //    var x, y, k;
+        //    if (d && centered !== d) {
+        //        var centroid = path.centroid(d);
+        //        x = centroid[0];
+        //        y = centroid[1];
+        //        k = 4;
+        //        centered = d;
+        //    } else {
+        //        x = width / 2;
+        //        y = height / 2;
+        //        k = 1;
+        //        centered = null;
+        //    }
+        //
+        //    g.selectAll("path")
+        //        .classed("active", centered && function(d) { return d === centered;});
+        //
+        //    g.transition()
+        //        .duration(750)
+        //        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+        //        .style("stroke-width", 1.5 / k + "px");
+        //}
+
+        var svg = d3.select("#scheduler").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            //.on("click", clicked)
+        .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + margin.left + "," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .attr("y", 6)
+            .attr("x", -9)
+            .attr("dy", ".35em")
+            .attr("transform", "rotate(-45)")
+            .style("text-anchor", "end");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + margin.left + ", 0)")
+            .call(yAxis)
+            .selectAll("text")
+            .attr("transform", "translate(0,-"+barHeight/2+")")
+            .attr("dy", ".71em")
+            .style("text-anchor", "end");
+
+
+        var rect = svg.selectAll("bar")
+            .data(runTimeInfo, function (d) { return d ? d.id : this.id })
+            .text(function (d) { return d.runTime })
+            .style("fill", "blue");
+
+        rect.exit().remove();
+
+        rect.enter().append("rect")
+            .attr("class", "rect")
+            .attr("transform", "translate(" + margin.left + ", 0)")
+            .merge(rect)
+            .attr("x", function (d) { return xScale(d.runTime); })
+            .attr("width", function(d) { return xScale(new Date(d.runTime.getTime() + d.averageRunDuration)) - xScale(d.runTime); })
+            .attr("y", function (d) { return yScale(d.number) - barHeight; })
+            .attr("height", function (d) { return yScale(jobSchedulesCount-2); });
+
+        var valueLine = d3.line()
+            .x(function(d) { return xScale(d.x); })
+            .y(function(d) { return yScale(d.y) });
+
+        svg.append("path")
+            .datum([{ x: currentDateTime, y: 0 }, { x: currentDateTime, y: jobSchedulesCount-1 }])
+            .attr("transform", "translate(" + margin.left + ", 0)")
+            .style("stroke", "red")
+            .attr("width", "1")
+            .attr("d", valueLine);
+
+
+        //transition();
+        //setInterval(transition, 10000);
+
+        function transition() {
+            gAxis.transition().duration(8500).tween("axis", function (d, i) {
+                var i = d3.interpolate(dateRangeDomain, jobDomain);
+                return function (t) {
+                    x.domain(i(t));
+                    gAxis.call(xAxis);
+                }
+            });
+        }
+    });
+</script>
+<div id="scheduler"></div>

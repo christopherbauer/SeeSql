@@ -1,0 +1,133 @@
+﻿body {
+    overflow: scroll;
+}
+
+ul.nav.nav-tabs li:hover {
+    cursor: pointer;
+}
+
+#jobNavigation {
+    margin: 0 auto;
+    width: 95%;
+}
+
+#jobNavigationContent {
+    margin: 0 auto;
+    width: 95%;
+    padding: 20px;
+    min-height: 20px;
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    border-bottom: solid 1px #ddd;
+}
+
+#scheduler svg {
+    margin-bottom: 30px;
+
+    .execution {
+        fill: steelblue;
+        stroke: black;
+    }
+
+    .view {
+        fill: none;
+    }
+
+    .currentTime {
+        stroke: red;
+    }
+}
+
+#jobs, #jobs-schedules, .job-run, .job-run-result-step {
+    table-layout: fixed;
+    width: 95%;
+    margin: 0 auto;
+
+    td {
+        word-break: break-word;
+    }
+}
+
+table.see-sql tbody tr {
+    background-color: white;
+    
+    &.even {
+        background-color: #ddefef;
+    }
+}
+
+.job-run {
+    border: solid 2px gray;
+    border-radius: 10px;
+}
+
+#jobs, #jobs-schedules {
+    i[data-key] {
+        padding: 3px;
+    }
+
+    > tbody > tr:not(.run-history) {
+
+        &[data-status="False"] {
+            background-color: #eee;
+            color: #888;
+        }
+
+        &[data-status="True"] {
+        }
+    }
+}
+
+tr {
+    border-bottom: black 1px solid;
+
+    &.expandable {
+        cursor: pointer;
+    }
+
+    th {
+        font-size: 1.1em;
+
+        &.small {
+            width: 50px;
+        }
+
+        &.medium {
+            width: 85px;
+        }
+
+        &.large {
+            width: 130px;
+        }
+
+        &.indicator {
+            width: 30px;
+            text-align: center;
+        }
+
+        &.date {
+            width: 160px;
+        }
+    }
+
+    td {
+        margin: 5px 0 5px 0;
+        padding: 5px 5px 5px 5px;
+
+        &:first-child {
+            padding-left: 3px;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+}
+
+.fa-times-circle {
+    color: red;
+}
+
+.fa-check {
+    color: lightgreen;
+}

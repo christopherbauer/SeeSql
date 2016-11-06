@@ -1,0 +1,40 @@
+﻿@model SeeSql.WebApplication.ViewModels.JobHistoryViewModel
+
+@{
+    Layout = null;
+}
+
+<table class="see-sql job-run-result-step">
+    <thead>
+        <tr>
+            <th class="indicator"></th>
+            <th class="step">Step</th>
+            <th>Step Name</th>
+            <th>Message</th>
+            <th>Run Duration</th>
+            <th>Run Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jobHistory in Model.JobHistory)
+        {
+            <tr class="job-run-result-step-result" data-job-key="@jobHistory.JobId" data-key="@jobHistory.InstanceId">
+                <td>
+                    @if (jobHistory.RunStatus == 0)
+                    {
+                        <i class="fa fa-times-circle"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-check"></i>
+                    }
+                </td>
+                <td>@Html.DisplayFor(model => jobHistory.StepId)</td>
+                <td>@Html.DisplayFor(model => jobHistory.StepName)</td>
+                <td>@Html.DisplayFor(model => jobHistory.Message)</td>
+                <td>@Html.DisplayFor(model => jobHistory.RunDuration)</td>
+                <td>@Html.DisplayFor(model => jobHistory.RunDate)</td>
+            </tr>
+        }
+    </tbody>
+</table>

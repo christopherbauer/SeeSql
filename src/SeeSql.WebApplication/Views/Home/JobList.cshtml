@@ -1,0 +1,80 @@
+﻿@model SeeSql.WebApplication.ViewModels.JobListViewModel
+
+@{
+    ViewBag.Title = null;
+    Layout = null;
+}
+<table id="see-sql jobs">
+    <thead>
+        <tr>
+            <th class="indicator"></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th class="small">Start Step</th>
+            <th class="date">Created</th>
+            <th class="date">Modified</th>
+            <th class="small">Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model.Jobs)
+            {
+            <tr class="expandable" data-key="@job.JobId" data-status="@job.Enabled">
+                <td><i data-key="@job.JobId" class="fa fa-plus-square-o"></i></td>
+                <td>@Html.DisplayFor(model => job.Name)</td>
+                <td>@Html.DisplayFor(model => job.Description)</td>
+                <td>@Html.DisplayFor(model => job.StartStepId)</td>
+                <td>@Html.DisplayFor(model => job.DateCreated)</td>
+                <td>@Html.DisplayFor(model => job.DateModified)</td>
+                <td>@Html.DisplayFor(model => job.VersionNumber)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    function setupUX() {
+        var container = $().closest(".tab-pane");
+
+        $(".jobs tbody tr[data-key]")
+            .on('click',
+                function() {
+                    var key = $(this).attr("data-key");
+                    if (key) {
+                        var $row = $("tr[data-key='" + key + "']");
+                        var $subrow = $(".run-history[data-key='" + key + "']");
+                        if (!$subrow.length) { //if sub row does not exist
+                            $("<tr class=\"run-history\" data-key=\"" +
+                                    key +
+                                    "\"><td colspan=\"" +
+                                    $row.find("td").length +
+                                    "\"></td></tr>")
+                                .insertAfter($row);
+
+                            $subrow = $(".run-history[data-key='" + key + "']");
+                            $subrow.find("td")
+                                .load("@Url.Action("JobHistoryRollup", "Home")",
+                            { jobId: key },
+                            function(responseText, textStatus, jqXHR) {
+                            });
+                        } else { //sub row exists
+                            $subrow.toggle();
+                        }
+                        var $rowCollapseStatusIcon = $row.find("i[data-key=\""+key+"\"]");
+                        $rowCollapseStatusIcon.removeClass("fa-plus-square-o");
+                        $rowCollapseStatusIcon.removeClass("fa-minus-square-o");
+                        if ($subrow.is(":visible")) {
+                            $rowCollapseStatusIcon.addClass("fa-minus-square-o");
+                        } else {
+                            $rowCollapseStatusIcon.addClass("fa-plus-square-o");
+                        }
+                    }
+                });
+            $("#@Model.DataTableName").DataTable(SeeSqlDefaults.DataTableOptions);
+    }
+
+        $().ready(function() {
+                setupUX();
+            });
+</script>

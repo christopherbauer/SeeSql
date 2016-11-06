@@ -1,0 +1,106 @@
+﻿body {
+  overflow: scroll;
+}
+ul.nav.nav-tabs li:hover {
+  cursor: pointer;
+}
+#jobNavigation {
+  margin: 0 auto;
+  width: 95%;
+}
+#jobNavigationContent {
+  margin: 0 auto;
+  width: 95%;
+  padding: 20px;
+  min-height: 20px;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+}
+#scheduler svg {
+  margin-bottom: 30px;
+}
+#scheduler svg .execution {
+  fill: steelblue;
+  stroke: black;
+}
+#scheduler svg .view {
+  fill: none;
+}
+#scheduler svg .currentTime {
+  stroke: red;
+}
+#jobs,
+#jobs-schedules,
+.job-run,
+.job-run-result-step {
+  table-layout: fixed;
+  width: 95%;
+  margin: 0 auto;
+}
+#jobs td,
+#jobs-schedules td,
+.job-run td,
+.job-run-result-step td {
+  word-break: break-word;
+}
+table.see-sql tbody tr {
+  background-color: white;
+}
+table.see-sql tbody tr.even {
+  background-color: #ddefef;
+}
+.job-run {
+  border: solid 2px gray;
+  border-radius: 10px;
+}
+#jobs i[data-key],
+#jobs-schedules i[data-key] {
+  padding: 3px;
+}
+#jobs > tbody > tr:not(.run-history)[data-status="False"],
+#jobs-schedules > tbody > tr:not(.run-history)[data-status="False"] {
+  background-color: #eee;
+  color: #888;
+}
+tr {
+  border-bottom: black 1px solid;
+}
+tr.expandable {
+  cursor: pointer;
+}
+tr th {
+  font-size: 1.1em;
+}
+tr th.small {
+  width: 50px;
+}
+tr th.medium {
+  width: 85px;
+}
+tr th.large {
+  width: 130px;
+}
+tr th.indicator {
+  width: 30px;
+  text-align: center;
+}
+tr th.date {
+  width: 160px;
+}
+tr td {
+  margin: 5px 0 5px 0;
+  padding: 5px 5px 5px 5px;
+}
+tr td:first-child {
+  padding-left: 3px;
+}
+tr td:last-child {
+  padding-right: 0;
+}
+.fa-times-circle {
+  color: red;
+}
+.fa-check {
+  color: lightgreen;
+}

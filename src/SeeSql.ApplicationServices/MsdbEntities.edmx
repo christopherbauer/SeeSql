@@ -1,0 +1,779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MsdbModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobactivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobactivity">
+          <Key>
+            <PropertyRef Name="session_id" />
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="session_id" Type="int" Nullable="false" />
+          <Property Name="job_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="run_requested_date" Type="datetime" />
+          <Property Name="run_requested_source" Type="nvarchar" MaxLength="128" />
+          <Property Name="queued_date" Type="datetime" />
+          <Property Name="start_execution_date" Type="datetime" />
+          <Property Name="last_executed_step_id" Type="int" />
+          <Property Name="last_executed_step_date" Type="datetime" />
+          <Property Name="stop_execution_date" Type="datetime" />
+          <Property Name="job_history_id" Type="int" />
+          <Property Name="next_scheduled_run_date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobhistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobhistory">
+          <Key>
+            <PropertyRef Name="instance_id" />
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="step_id" />
+            <PropertyRef Name="step_name" />
+            <PropertyRef Name="sql_message_id" />
+            <PropertyRef Name="sql_severity" />
+            <PropertyRef Name="run_status" />
+            <PropertyRef Name="run_date" />
+            <PropertyRef Name="run_time" />
+            <PropertyRef Name="run_duration" />
+            <PropertyRef Name="operator_id_emailed" />
+            <PropertyRef Name="operator_id_netsent" />
+            <PropertyRef Name="operator_id_paged" />
+            <PropertyRef Name="retries_attempted" />
+            <PropertyRef Name="server" />
+          </Key>
+          <Property Name="instance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="job_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="step_id" Type="int" Nullable="false" />
+          <Property Name="step_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="sql_message_id" Type="int" Nullable="false" />
+          <Property Name="sql_severity" Type="int" Nullable="false" />
+          <Property Name="message" Type="nvarchar" MaxLength="4000" />
+          <Property Name="run_status" Type="int" Nullable="false" />
+          <Property Name="run_date" Type="int" Nullable="false" />
+          <Property Name="run_time" Type="int" Nullable="false" />
+          <Property Name="run_duration" Type="int" Nullable="false" />
+          <Property Name="operator_id_emailed" Type="int" Nullable="false" />
+          <Property Name="operator_id_netsent" Type="int" Nullable="false" />
+          <Property Name="operator_id_paged" Type="int" Nullable="false" />
+          <Property Name="retries_attempted" Type="int" Nullable="false" />
+          <Property Name="server" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobs">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="originating_server_id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="enabled" />
+            <PropertyRef Name="start_step_id" />
+            <PropertyRef Name="category_id" />
+            <PropertyRef Name="owner_sid" />
+            <PropertyRef Name="notify_level_eventlog" />
+            <PropertyRef Name="notify_level_email" />
+            <PropertyRef Name="notify_level_netsend" />
+            <PropertyRef Name="notify_level_page" />
+            <PropertyRef Name="notify_email_operator_id" />
+            <PropertyRef Name="notify_netsend_operator_id" />
+            <PropertyRef Name="notify_page_operator_id" />
+            <PropertyRef Name="delete_level" />
+            <PropertyRef Name="date_created" />
+            <PropertyRef Name="date_modified" />
+            <PropertyRef Name="version_number" />
+          </Key>
+          <Property Name="job_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="originating_server_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="enabled" Type="tinyint" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="512" />
+          <Property Name="start_step_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="owner_sid" Type="varbinary" MaxLength="85" Nullable="false" />
+          <Property Name="notify_level_eventlog" Type="int" Nullable="false" />
+          <Property Name="notify_level_email" Type="int" Nullable="false" />
+          <Property Name="notify_level_netsend" Type="int" Nullable="false" />
+          <Property Name="notify_level_page" Type="int" Nullable="false" />
+          <Property Name="notify_email_operator_id" Type="int" Nullable="false" />
+          <Property Name="notify_netsend_operator_id" Type="int" Nullable="false" />
+          <Property Name="notify_page_operator_id" Type="int" Nullable="false" />
+          <Property Name="delete_level" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="date_modified" Type="datetime" Nullable="false" />
+          <Property Name="version_number" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobschedules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobschedules">
+          <Key>
+            <PropertyRef Name="next_run_date" />
+            <PropertyRef Name="next_run_time" />
+          </Key>
+          <Property Name="schedule_id" Type="int" />
+          <Property Name="job_id" Type="uniqueidentifier" />
+          <Property Name="next_run_date" Type="int" Nullable="false" />
+          <Property Name="next_run_time" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobservers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobservers">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="server_id" />
+            <PropertyRef Name="last_run_outcome" />
+            <PropertyRef Name="last_run_date" />
+            <PropertyRef Name="last_run_time" />
+            <PropertyRef Name="last_run_duration" />
+          </Key>
+          <Property Name="job_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="server_id" Type="int" Nullable="false" />
+          <Property Name="last_run_outcome" Type="tinyint" Nullable="false" />
+          <Property Name="last_outcome_message" Type="nvarchar" MaxLength="4000" />
+          <Property Name="last_run_date" Type="int" Nullable="false" />
+          <Property Name="last_run_time" Type="int" Nullable="false" />
+          <Property Name="last_run_duration" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'msdb.dbo.sysjobsteps' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysjobsteps">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="step_id" />
+            <PropertyRef Name="step_name" />
+            <PropertyRef Name="subsystem" />
+            <PropertyRef Name="flags" />
+            <PropertyRef Name="cmdexec_success_code" />
+            <PropertyRef Name="on_success_action" />
+            <PropertyRef Name="on_success_step_id" />
+            <PropertyRef Name="on_fail_action" />
+            <PropertyRef Name="on_fail_step_id" />
+            <PropertyRef Name="retry_attempts" />
+            <PropertyRef Name="retry_interval" />
+            <PropertyRef Name="os_run_priority" />
+            <PropertyRef Name="last_run_outcome" />
+            <PropertyRef Name="last_run_duration" />
+            <PropertyRef Name="last_run_retries" />
+            <PropertyRef Name="last_run_date" />
+            <PropertyRef Name="last_run_time" />
+          </Key>
+          <Property Name="job_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="step_id" Type="int" Nullable="false" />
+          <Property Name="step_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="subsystem" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="command" Type="nvarchar(max)" />
+          <Property Name="flags" Type="int" Nullable="false" />
+          <Property Name="additional_parameters" Type="nvarchar(max)" />
+          <Property Name="cmdexec_success_code" Type="int" Nullable="false" />
+          <Property Name="on_success_action" Type="tinyint" Nullable="false" />
+          <Property Name="on_success_step_id" Type="int" Nullable="false" />
+          <Property Name="on_fail_action" Type="tinyint" Nullable="false" />
+          <Property Name="on_fail_step_id" Type="int" Nullable="false" />
+          <Property Name="server" Type="nvarchar" MaxLength="128" />
+          <Property Name="database_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="database_user_name" Type="nvarchar" MaxLength="128" />
+          <Property Name="retry_attempts" Type="int" Nullable="false" />
+          <Property Name="retry_interval" Type="int" Nullable="false" />
+          <Property Name="os_run_priority" Type="int" Nullable="false" />
+          <Property Name="output_file_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="last_run_outcome" Type="int" Nullable="false" />
+          <Property Name="last_run_duration" Type="int" Nullable="false" />
+          <Property Name="last_run_retries" Type="int" Nullable="false" />
+          <Property Name="last_run_date" Type="int" Nullable="false" />
+          <Property Name="last_run_time" Type="int" Nullable="false" />
+          <Property Name="proxy_id" Type="int" />
+          <Property Name="step_uid" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="sysjobstepslogs">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="log" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="date_modified" Type="datetime" Nullable="false" />
+          <Property Name="log_size" Type="bigint" />
+          <Property Name="step_uid" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysschedules">
+          <Key>
+            <PropertyRef Name="schedule_id" />
+          </Key>
+          <Property Name="schedule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="schedule_uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="originating_server_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="owner_sid" Type="varbinary" MaxLength="85" Nullable="false" />
+          <Property Name="enabled" Type="int" Nullable="false" />
+          <Property Name="freq_type" Type="int" Nullable="false" />
+          <Property Name="freq_interval" Type="int" Nullable="false" />
+          <Property Name="freq_subday_type" Type="int" Nullable="false" />
+          <Property Name="freq_subday_interval" Type="int" Nullable="false" />
+          <Property Name="freq_relative_interval" Type="int" Nullable="false" />
+          <Property Name="freq_recurrence_factor" Type="int" Nullable="false" />
+          <Property Name="active_start_date" Type="int" Nullable="false" />
+          <Property Name="active_end_date" Type="int" Nullable="false" />
+          <Property Name="active_start_time" Type="int" Nullable="false" />
+          <Property Name="active_end_time" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="date_modified" Type="datetime" Nullable="false" />
+          <Property Name="version_number" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__sysjobact__job_i__5165187F' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__sysjobact__job_i__5165187F" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__sysjobsch__job_i__60A75C0F' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__sysjobsch__job_i__60A75C0F" />-->
+        <Association Name="FK__sysjobsch__sched__5FB337D6">
+          <End Role="sysschedules" Type="Self.sysschedules" Multiplicity="0..1" />
+          <End Role="sysjobschedules" Type="Self.sysjobschedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysschedules">
+              <PropertyRef Name="schedule_id" />
+            </Principal>
+            <Dependent Role="sysjobschedules">
+              <PropertyRef Name="schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__sysjobste__step___571DF1D5' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__sysjobste__step___571DF1D5" />-->
+        <EntityContainer Name="MsdbModelsStoreContainer">
+          <EntitySet Name="sysjobstepslogs" EntityType="Self.sysjobstepslogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysschedules" EntityType="Self.sysschedules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysjobactivity" EntityType="Self.sysjobactivity" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobactivity].[session_id] AS [session_id], 
+    [sysjobactivity].[job_id] AS [job_id], 
+    [sysjobactivity].[run_requested_date] AS [run_requested_date], 
+    [sysjobactivity].[run_requested_source] AS [run_requested_source], 
+    [sysjobactivity].[queued_date] AS [queued_date], 
+    [sysjobactivity].[start_execution_date] AS [start_execution_date], 
+    [sysjobactivity].[last_executed_step_id] AS [last_executed_step_id], 
+    [sysjobactivity].[last_executed_step_date] AS [last_executed_step_date], 
+    [sysjobactivity].[stop_execution_date] AS [stop_execution_date], 
+    [sysjobactivity].[job_history_id] AS [job_history_id], 
+    [sysjobactivity].[next_scheduled_run_date] AS [next_scheduled_run_date]
+    FROM [dbo].[sysjobactivity] AS [sysjobactivity]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysjobhistory" EntityType="Self.sysjobhistory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobhistory].[instance_id] AS [instance_id], 
+    [sysjobhistory].[job_id] AS [job_id], 
+    [sysjobhistory].[step_id] AS [step_id], 
+    [sysjobhistory].[step_name] AS [step_name], 
+    [sysjobhistory].[sql_message_id] AS [sql_message_id], 
+    [sysjobhistory].[sql_severity] AS [sql_severity], 
+    [sysjobhistory].[message] AS [message], 
+    [sysjobhistory].[run_status] AS [run_status], 
+    [sysjobhistory].[run_date] AS [run_date], 
+    [sysjobhistory].[run_time] AS [run_time], 
+    [sysjobhistory].[run_duration] AS [run_duration], 
+    [sysjobhistory].[operator_id_emailed] AS [operator_id_emailed], 
+    [sysjobhistory].[operator_id_netsent] AS [operator_id_netsent], 
+    [sysjobhistory].[operator_id_paged] AS [operator_id_paged], 
+    [sysjobhistory].[retries_attempted] AS [retries_attempted], 
+    [sysjobhistory].[server] AS [server]
+    FROM [dbo].[sysjobhistory] AS [sysjobhistory]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysjobs" EntityType="Self.sysjobs" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobs].[job_id] AS [job_id], 
+    [sysjobs].[originating_server_id] AS [originating_server_id], 
+    [sysjobs].[name] AS [name], 
+    [sysjobs].[enabled] AS [enabled], 
+    [sysjobs].[description] AS [description], 
+    [sysjobs].[start_step_id] AS [start_step_id], 
+    [sysjobs].[category_id] AS [category_id], 
+    [sysjobs].[owner_sid] AS [owner_sid], 
+    [sysjobs].[notify_level_eventlog] AS [notify_level_eventlog], 
+    [sysjobs].[notify_level_email] AS [notify_level_email], 
+    [sysjobs].[notify_level_netsend] AS [notify_level_netsend], 
+    [sysjobs].[notify_level_page] AS [notify_level_page], 
+    [sysjobs].[notify_email_operator_id] AS [notify_email_operator_id], 
+    [sysjobs].[notify_netsend_operator_id] AS [notify_netsend_operator_id], 
+    [sysjobs].[notify_page_operator_id] AS [notify_page_operator_id], 
+    [sysjobs].[delete_level] AS [delete_level], 
+    [sysjobs].[date_created] AS [date_created], 
+    [sysjobs].[date_modified] AS [date_modified], 
+    [sysjobs].[version_number] AS [version_number]
+    FROM [dbo].[sysjobs] AS [sysjobs]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysjobschedules" EntityType="Self.sysjobschedules" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobschedules].[schedule_id] AS [schedule_id], 
+    [sysjobschedules].[job_id] AS [job_id], 
+    [sysjobschedules].[next_run_date] AS [next_run_date], 
+    [sysjobschedules].[next_run_time] AS [next_run_time]
+    FROM [dbo].[sysjobschedules] AS [sysjobschedules]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysjobservers" EntityType="Self.sysjobservers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobservers].[job_id] AS [job_id], 
+    [sysjobservers].[server_id] AS [server_id], 
+    [sysjobservers].[last_run_outcome] AS [last_run_outcome], 
+    [sysjobservers].[last_outcome_message] AS [last_outcome_message], 
+    [sysjobservers].[last_run_date] AS [last_run_date], 
+    [sysjobservers].[last_run_time] AS [last_run_time], 
+    [sysjobservers].[last_run_duration] AS [last_run_duration]
+    FROM [dbo].[sysjobservers] AS [sysjobservers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysjobsteps" EntityType="Self.sysjobsteps" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysjobsteps].[job_id] AS [job_id], 
+    [sysjobsteps].[step_id] AS [step_id], 
+    [sysjobsteps].[step_name] AS [step_name], 
+    [sysjobsteps].[subsystem] AS [subsystem], 
+    [sysjobsteps].[command] AS [command], 
+    [sysjobsteps].[flags] AS [flags], 
+    [sysjobsteps].[additional_parameters] AS [additional_parameters], 
+    [sysjobsteps].[cmdexec_success_code] AS [cmdexec_success_code], 
+    [sysjobsteps].[on_success_action] AS [on_success_action], 
+    [sysjobsteps].[on_success_step_id] AS [on_success_step_id], 
+    [sysjobsteps].[on_fail_action] AS [on_fail_action], 
+    [sysjobsteps].[on_fail_step_id] AS [on_fail_step_id], 
+    [sysjobsteps].[server] AS [server], 
+    [sysjobsteps].[database_name] AS [database_name], 
+    [sysjobsteps].[database_user_name] AS [database_user_name], 
+    [sysjobsteps].[retry_attempts] AS [retry_attempts], 
+    [sysjobsteps].[retry_interval] AS [retry_interval], 
+    [sysjobsteps].[os_run_priority] AS [os_run_priority], 
+    [sysjobsteps].[output_file_name] AS [output_file_name], 
+    [sysjobsteps].[last_run_outcome] AS [last_run_outcome], 
+    [sysjobsteps].[last_run_duration] AS [last_run_duration], 
+    [sysjobsteps].[last_run_retries] AS [last_run_retries], 
+    [sysjobsteps].[last_run_date] AS [last_run_date], 
+    [sysjobsteps].[last_run_time] AS [last_run_time], 
+    [sysjobsteps].[proxy_id] AS [proxy_id], 
+    [sysjobsteps].[step_uid] AS [step_uid]
+    FROM [dbo].[sysjobsteps] AS [sysjobsteps]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__sysjobsch__sched__5FB337D6" Association="Self.FK__sysjobsch__sched__5FB337D6">
+            <End Role="sysschedules" EntitySet="sysschedules" />
+            <End Role="sysjobschedules" EntitySet="sysjobschedules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MsdbModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysjobstepslog">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="log" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="log_size" Type="Int64" />
+          <Property Name="step_uid" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysschedule">
+          <Key>
+            <PropertyRef Name="schedule_id" />
+          </Key>
+          <Property Name="schedule_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="schedule_uid" Type="Guid" Nullable="false" />
+          <Property Name="originating_server_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="owner_sid" Type="Binary" MaxLength="85" FixedLength="false" Nullable="false" />
+          <Property Name="enabled" Type="Int32" Nullable="false" />
+          <Property Name="freq_type" Type="Int32" Nullable="false" />
+          <Property Name="freq_interval" Type="Int32" Nullable="false" />
+          <Property Name="freq_subday_type" Type="Int32" Nullable="false" />
+          <Property Name="freq_subday_interval" Type="Int32" Nullable="false" />
+          <Property Name="freq_relative_interval" Type="Int32" Nullable="false" />
+          <Property Name="freq_recurrence_factor" Type="Int32" Nullable="false" />
+          <Property Name="active_start_date" Type="Int32" Nullable="false" />
+          <Property Name="active_end_date" Type="Int32" Nullable="false" />
+          <Property Name="active_start_time" Type="Int32" Nullable="false" />
+          <Property Name="active_end_time" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="version_number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sysjobschedules" Relationship="Self.FK__sysjobsch__sched__5FB337D6" FromRole="sysschedules" ToRole="sysjobschedules" />
+        </EntityType>
+        <EntityType Name="sysjobactivity">
+          <Key>
+            <PropertyRef Name="session_id" />
+            <PropertyRef Name="job_id" />
+          </Key>
+          <Property Name="session_id" Type="Int32" Nullable="false" />
+          <Property Name="job_id" Type="Guid" Nullable="false" />
+          <Property Name="run_requested_date" Type="DateTime" Precision="3" />
+          <Property Name="run_requested_source" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="queued_date" Type="DateTime" Precision="3" />
+          <Property Name="start_execution_date" Type="DateTime" Precision="3" />
+          <Property Name="last_executed_step_id" Type="Int32" />
+          <Property Name="last_executed_step_date" Type="DateTime" Precision="3" />
+          <Property Name="stop_execution_date" Type="DateTime" Precision="3" />
+          <Property Name="job_history_id" Type="Int32" />
+          <Property Name="next_scheduled_run_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="sysjobhistory">
+          <Key>
+            <PropertyRef Name="instance_id" />
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="step_id" />
+            <PropertyRef Name="step_name" />
+            <PropertyRef Name="sql_message_id" />
+            <PropertyRef Name="sql_severity" />
+            <PropertyRef Name="run_status" />
+            <PropertyRef Name="run_date" />
+            <PropertyRef Name="run_time" />
+            <PropertyRef Name="run_duration" />
+            <PropertyRef Name="operator_id_emailed" />
+            <PropertyRef Name="operator_id_netsent" />
+            <PropertyRef Name="operator_id_paged" />
+            <PropertyRef Name="retries_attempted" />
+            <PropertyRef Name="server" />
+          </Key>
+          <Property Name="instance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_id" Type="Guid" Nullable="false" />
+          <Property Name="step_id" Type="Int32" Nullable="false" />
+          <Property Name="step_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sql_message_id" Type="Int32" Nullable="false" />
+          <Property Name="sql_severity" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="run_status" Type="Int32" Nullable="false" />
+          <Property Name="run_date" Type="Int32" Nullable="false" />
+          <Property Name="run_time" Type="Int32" Nullable="false" />
+          <Property Name="run_duration" Type="Int32" Nullable="false" />
+          <Property Name="operator_id_emailed" Type="Int32" Nullable="false" />
+          <Property Name="operator_id_netsent" Type="Int32" Nullable="false" />
+          <Property Name="operator_id_paged" Type="Int32" Nullable="false" />
+          <Property Name="retries_attempted" Type="Int32" Nullable="false" />
+          <Property Name="server" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysjob">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="originating_server_id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="enabled" />
+            <PropertyRef Name="start_step_id" />
+            <PropertyRef Name="category_id" />
+            <PropertyRef Name="owner_sid" />
+            <PropertyRef Name="notify_level_eventlog" />
+            <PropertyRef Name="notify_level_email" />
+            <PropertyRef Name="notify_level_netsend" />
+            <PropertyRef Name="notify_level_page" />
+            <PropertyRef Name="notify_email_operator_id" />
+            <PropertyRef Name="notify_netsend_operator_id" />
+            <PropertyRef Name="notify_page_operator_id" />
+            <PropertyRef Name="delete_level" />
+            <PropertyRef Name="date_created" />
+            <PropertyRef Name="date_modified" />
+            <PropertyRef Name="version_number" />
+          </Key>
+          <Property Name="job_id" Type="Guid" Nullable="false" />
+          <Property Name="originating_server_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="enabled" Type="Byte" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="start_step_id" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="owner_sid" Type="Binary" MaxLength="85" FixedLength="false" Nullable="false" />
+          <Property Name="notify_level_eventlog" Type="Int32" Nullable="false" />
+          <Property Name="notify_level_email" Type="Int32" Nullable="false" />
+          <Property Name="notify_level_netsend" Type="Int32" Nullable="false" />
+          <Property Name="notify_level_page" Type="Int32" Nullable="false" />
+          <Property Name="notify_email_operator_id" Type="Int32" Nullable="false" />
+          <Property Name="notify_netsend_operator_id" Type="Int32" Nullable="false" />
+          <Property Name="notify_page_operator_id" Type="Int32" Nullable="false" />
+          <Property Name="delete_level" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="version_number" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysjobschedule">
+          <Key>
+            <PropertyRef Name="next_run_date" />
+            <PropertyRef Name="next_run_time" />
+          </Key>
+          <Property Name="schedule_id" Type="Int32" />
+          <Property Name="job_id" Type="Guid" />
+          <Property Name="next_run_date" Type="Int32" Nullable="false" />
+          <Property Name="next_run_time" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sysschedule" Relationship="Self.FK__sysjobsch__sched__5FB337D6" FromRole="sysjobschedules" ToRole="sysschedules" />
+        </EntityType>
+        <EntityType Name="sysjobserver">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="server_id" />
+            <PropertyRef Name="last_run_outcome" />
+            <PropertyRef Name="last_run_date" />
+            <PropertyRef Name="last_run_time" />
+            <PropertyRef Name="last_run_duration" />
+          </Key>
+          <Property Name="job_id" Type="Guid" Nullable="false" />
+          <Property Name="server_id" Type="Int32" Nullable="false" />
+          <Property Name="last_run_outcome" Type="Byte" Nullable="false" />
+          <Property Name="last_outcome_message" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="last_run_date" Type="Int32" Nullable="false" />
+          <Property Name="last_run_time" Type="Int32" Nullable="false" />
+          <Property Name="last_run_duration" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysjobstep">
+          <Key>
+            <PropertyRef Name="job_id" />
+            <PropertyRef Name="step_id" />
+            <PropertyRef Name="step_name" />
+            <PropertyRef Name="subsystem" />
+            <PropertyRef Name="flags" />
+            <PropertyRef Name="cmdexec_success_code" />
+            <PropertyRef Name="on_success_action" />
+            <PropertyRef Name="on_success_step_id" />
+            <PropertyRef Name="on_fail_action" />
+            <PropertyRef Name="on_fail_step_id" />
+            <PropertyRef Name="retry_attempts" />
+            <PropertyRef Name="retry_interval" />
+            <PropertyRef Name="os_run_priority" />
+            <PropertyRef Name="last_run_outcome" />
+            <PropertyRef Name="last_run_duration" />
+            <PropertyRef Name="last_run_retries" />
+            <PropertyRef Name="last_run_date" />
+            <PropertyRef Name="last_run_time" />
+          </Key>
+          <Property Name="job_id" Type="Guid" Nullable="false" />
+          <Property Name="step_id" Type="Int32" Nullable="false" />
+          <Property Name="step_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="subsystem" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="command" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="flags" Type="Int32" Nullable="false" />
+          <Property Name="additional_parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cmdexec_success_code" Type="Int32" Nullable="false" />
+          <Property Name="on_success_action" Type="Byte" Nullable="false" />
+          <Property Name="on_success_step_id" Type="Int32" Nullable="false" />
+          <Property Name="on_fail_action" Type="Byte" Nullable="false" />
+          <Property Name="on_fail_step_id" Type="Int32" Nullable="false" />
+          <Property Name="server" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="database_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="database_user_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="retry_attempts" Type="Int32" Nullable="false" />
+          <Property Name="retry_interval" Type="Int32" Nullable="false" />
+          <Property Name="os_run_priority" Type="Int32" Nullable="false" />
+          <Property Name="output_file_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="last_run_outcome" Type="Int32" Nullable="false" />
+          <Property Name="last_run_duration" Type="Int32" Nullable="false" />
+          <Property Name="last_run_retries" Type="Int32" Nullable="false" />
+          <Property Name="last_run_date" Type="Int32" Nullable="false" />
+          <Property Name="last_run_time" Type="Int32" Nullable="false" />
+          <Property Name="proxy_id" Type="Int32" />
+          <Property Name="step_uid" Type="Guid" />
+        </EntityType>
+        <Association Name="FK__sysjobsch__sched__5FB337D6">
+          <End Role="sysschedules" Type="Self.sysschedule" Multiplicity="0..1" />
+          <End Role="sysjobschedules" Type="Self.sysjobschedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysschedules">
+              <PropertyRef Name="schedule_id" />
+            </Principal>
+            <Dependent Role="sysjobschedules">
+              <PropertyRef Name="schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MsdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysjobstepslogs" EntityType="Self.sysjobstepslog" />
+          <EntitySet Name="sysschedules" EntityType="Self.sysschedule" />
+          <EntitySet Name="sysjobactivities" EntityType="Self.sysjobactivity" />
+          <EntitySet Name="sysjobhistories" EntityType="Self.sysjobhistory" />
+          <EntitySet Name="sysjobs" EntityType="Self.sysjob" />
+          <EntitySet Name="sysjobschedules" EntityType="Self.sysjobschedule" />
+          <EntitySet Name="sysjobservers" EntityType="Self.sysjobserver" />
+          <EntitySet Name="sysjobsteps" EntityType="Self.sysjobstep" />
+          <AssociationSet Name="FK__sysjobsch__sched__5FB337D6" Association="Self.FK__sysjobsch__sched__5FB337D6">
+            <End Role="sysschedules" EntitySet="sysschedules" />
+            <End Role="sysjobschedules" EntitySet="sysjobschedules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MsdbModelsStoreContainer" CdmEntityContainer="MsdbEntities">
+          <EntitySetMapping Name="sysjobstepslogs">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobstepslog">
+              <MappingFragment StoreEntitySet="sysjobstepslogs">
+                <ScalarProperty Name="log_id" ColumnName="log_id" />
+                <ScalarProperty Name="log" ColumnName="log" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="log_size" ColumnName="log_size" />
+                <ScalarProperty Name="step_uid" ColumnName="step_uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysschedules">
+            <EntityTypeMapping TypeName="MsdbModels.sysschedule">
+              <MappingFragment StoreEntitySet="sysschedules">
+                <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+                <ScalarProperty Name="schedule_uid" ColumnName="schedule_uid" />
+                <ScalarProperty Name="originating_server_id" ColumnName="originating_server_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="owner_sid" ColumnName="owner_sid" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="freq_type" ColumnName="freq_type" />
+                <ScalarProperty Name="freq_interval" ColumnName="freq_interval" />
+                <ScalarProperty Name="freq_subday_type" ColumnName="freq_subday_type" />
+                <ScalarProperty Name="freq_subday_interval" ColumnName="freq_subday_interval" />
+                <ScalarProperty Name="freq_relative_interval" ColumnName="freq_relative_interval" />
+                <ScalarProperty Name="freq_recurrence_factor" ColumnName="freq_recurrence_factor" />
+                <ScalarProperty Name="active_start_date" ColumnName="active_start_date" />
+                <ScalarProperty Name="active_end_date" ColumnName="active_end_date" />
+                <ScalarProperty Name="active_start_time" ColumnName="active_start_time" />
+                <ScalarProperty Name="active_end_time" ColumnName="active_end_time" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="version_number" ColumnName="version_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobactivities">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobactivity">
+              <MappingFragment StoreEntitySet="sysjobactivity">
+                <ScalarProperty Name="session_id" ColumnName="session_id" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="run_requested_date" ColumnName="run_requested_date" />
+                <ScalarProperty Name="run_requested_source" ColumnName="run_requested_source" />
+                <ScalarProperty Name="queued_date" ColumnName="queued_date" />
+                <ScalarProperty Name="start_execution_date" ColumnName="start_execution_date" />
+                <ScalarProperty Name="last_executed_step_id" ColumnName="last_executed_step_id" />
+                <ScalarProperty Name="last_executed_step_date" ColumnName="last_executed_step_date" />
+                <ScalarProperty Name="stop_execution_date" ColumnName="stop_execution_date" />
+                <ScalarProperty Name="job_history_id" ColumnName="job_history_id" />
+                <ScalarProperty Name="next_scheduled_run_date" ColumnName="next_scheduled_run_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobhistories">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobhistory">
+              <MappingFragment StoreEntitySet="sysjobhistory">
+                <ScalarProperty Name="instance_id" ColumnName="instance_id" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="step_id" ColumnName="step_id" />
+                <ScalarProperty Name="step_name" ColumnName="step_name" />
+                <ScalarProperty Name="sql_message_id" ColumnName="sql_message_id" />
+                <ScalarProperty Name="sql_severity" ColumnName="sql_severity" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="run_status" ColumnName="run_status" />
+                <ScalarProperty Name="run_date" ColumnName="run_date" />
+                <ScalarProperty Name="run_time" ColumnName="run_time" />
+                <ScalarProperty Name="run_duration" ColumnName="run_duration" />
+                <ScalarProperty Name="operator_id_emailed" ColumnName="operator_id_emailed" />
+                <ScalarProperty Name="operator_id_netsent" ColumnName="operator_id_netsent" />
+                <ScalarProperty Name="operator_id_paged" ColumnName="operator_id_paged" />
+                <ScalarProperty Name="retries_attempted" ColumnName="retries_attempted" />
+                <ScalarProperty Name="server" ColumnName="server" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobs">
+            <EntityTypeMapping TypeName="MsdbModels.sysjob">
+              <MappingFragment StoreEntitySet="sysjobs">
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="originating_server_id" ColumnName="originating_server_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="start_step_id" ColumnName="start_step_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="owner_sid" ColumnName="owner_sid" />
+                <ScalarProperty Name="notify_level_eventlog" ColumnName="notify_level_eventlog" />
+                <ScalarProperty Name="notify_level_email" ColumnName="notify_level_email" />
+                <ScalarProperty Name="notify_level_netsend" ColumnName="notify_level_netsend" />
+                <ScalarProperty Name="notify_level_page" ColumnName="notify_level_page" />
+                <ScalarProperty Name="notify_email_operator_id" ColumnName="notify_email_operator_id" />
+                <ScalarProperty Name="notify_netsend_operator_id" ColumnName="notify_netsend_operator_id" />
+                <ScalarProperty Name="notify_page_operator_id" ColumnName="notify_page_operator_id" />
+                <ScalarProperty Name="delete_level" ColumnName="delete_level" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="version_number" ColumnName="version_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobschedules">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobschedule">
+              <MappingFragment StoreEntitySet="sysjobschedules">
+                <ScalarProperty Name="schedule_id" ColumnName="schedule_id" />
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="next_run_date" ColumnName="next_run_date" />
+                <ScalarProperty Name="next_run_time" ColumnName="next_run_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobservers">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobserver">
+              <MappingFragment StoreEntitySet="sysjobservers">
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="server_id" ColumnName="server_id" />
+                <ScalarProperty Name="last_run_outcome" ColumnName="last_run_outcome" />
+                <ScalarProperty Name="last_outcome_message" ColumnName="last_outcome_message" />
+                <ScalarProperty Name="last_run_date" ColumnName="last_run_date" />
+                <ScalarProperty Name="last_run_time" ColumnName="last_run_time" />
+                <ScalarProperty Name="last_run_duration" ColumnName="last_run_duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysjobsteps">
+            <EntityTypeMapping TypeName="MsdbModels.sysjobstep">
+              <MappingFragment StoreEntitySet="sysjobsteps">
+                <ScalarProperty Name="job_id" ColumnName="job_id" />
+                <ScalarProperty Name="step_id" ColumnName="step_id" />
+                <ScalarProperty Name="step_name" ColumnName="step_name" />
+                <ScalarProperty Name="subsystem" ColumnName="subsystem" />
+                <ScalarProperty Name="command" ColumnName="command" />
+                <ScalarProperty Name="flags" ColumnName="flags" />
+                <ScalarProperty Name="additional_parameters" ColumnName="additional_parameters" />
+                <ScalarProperty Name="cmdexec_success_code" ColumnName="cmdexec_success_code" />
+                <ScalarProperty Name="on_success_action" ColumnName="on_success_action" />
+                <ScalarProperty Name="on_success_step_id" ColumnName="on_success_step_id" />
+                <ScalarProperty Name="on_fail_action" ColumnName="on_fail_action" />
+                <ScalarProperty Name="on_fail_step_id" ColumnName="on_fail_step_id" />
+                <ScalarProperty Name="server" ColumnName="server" />
+                <ScalarProperty Name="database_name" ColumnName="database_name" />
+                <ScalarProperty Name="database_user_name" ColumnName="database_user_name" />
+                <ScalarProperty Name="retry_attempts" ColumnName="retry_attempts" />
+                <ScalarProperty Name="retry_interval" ColumnName="retry_interval" />
+                <ScalarProperty Name="os_run_priority" ColumnName="os_run_priority" />
+                <ScalarProperty Name="output_file_name" ColumnName="output_file_name" />
+                <ScalarProperty Name="last_run_outcome" ColumnName="last_run_outcome" />
+                <ScalarProperty Name="last_run_duration" ColumnName="last_run_duration" />
+                <ScalarProperty Name="last_run_retries" ColumnName="last_run_retries" />
+                <ScalarProperty Name="last_run_date" ColumnName="last_run_date" />
+                <ScalarProperty Name="last_run_time" ColumnName="last_run_time" />
+                <ScalarProperty Name="proxy_id" ColumnName="proxy_id" />
+                <ScalarProperty Name="step_uid" ColumnName="step_uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
